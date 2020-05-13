@@ -1,15 +1,16 @@
 <template>
   <div id="editor">
-    <textarea :value="input"></textarea>
-    <!-- <div v-html="compiledMarkdown"></div> -->
+    <textarea :value="input" @input="update"></textarea>
+    <div v-html="compiledMarkdown"></div>
   </div>
 </template>
 
 <script>
+let marked = require("marked");
+let _ = require("lodash");
 export default {
   name: "Home",
-  components: {
-  },
+  components: {},
   data: function() {
     return {
       input: "# hello"
@@ -17,14 +18,13 @@ export default {
   },
   computed: {
     compiledMarkdown: function() {
-      // return marked(this.input, { sanitize: true });
-      return "marcador"
+      return marked(this.input, { sanitize: true });
     }
   },
   methods: {
-    // update: _.debounce(function(e) {
-    //   this.input = e.target.value;
-    // }, 300)
+    update: _.debounce(function(e) {
+      this.input = e.target.value;
+    }, 300)
   }
 };
 </script>
@@ -42,8 +42,8 @@ body,
 textarea,
 #editor div {
   display: inline-block;
-  width: 48%;
-  height: 80%;
+  width: 49%;
+  height: 100%;
   vertical-align: top;
   box-sizing: border-box;
   padding: 0 20px;
