@@ -1,10 +1,10 @@
 <template>
   <div id="app">
-    <!-- <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div> -->
-    <router-view />
+    <div class="container">
+      <app-header></app-header>
+      <router-view />
+    </div>
+    <app-footer></app-footer>
   </div>
 </template>
 
@@ -30,3 +30,15 @@
   color: #42b983;
 } */
 </style>
+<script>
+import header from "./components/Header";
+import footer from "./components/Footer";
+
+export default {
+  components: {
+    "app-header": header,
+    "app-footer": footer
+    // 'app-footer': footer
+  }
+};
+</script>

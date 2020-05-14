@@ -1,6 +1,6 @@
 <template>
 <footer>
-        &copy; Pankajashree R, 2017
+        &copy; Bruno Jamelli, 2020
 </footer>
 </template>
 <style>
@@ -10,7 +10,9 @@ footer {
   width: 100%;
   /* Set the fixed height of the footer here */
   padding: 1%;
-  background-color: #bcd;
+  background-color:black;
+  color: white;
+  font-weight: bold;
   text-align: center;
 }
 </style>
