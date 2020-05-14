@@ -1,66 +1,48 @@
 <template>
-  <div id="editor">
-    <textarea :value="input" @input="update"></textarea>
-    <div v-html="compiledMarkdown"></div>
+  <div id="home">
+  <div class = "container">
+  <app-header></app-header>
+    <div id="md" class="col-md-6">
+    <h2 class="text-success text-center">Enter Markdown Text</h2>
+    <textarea style="height:auto" rows="16" class='form-control' v-model='md_text'></textarea>
+    </div>
+    <div id="preview" class="col-md-6">
+    <h2 class="text-success text-center">Preview</h2>
+    <div class = "well well-sm pre-scrollable"  v-html='previewText' ></div>
+    </div>
+    </div>
+    <app-footer></app-footer>
   </div>
 </template>
-
 <script>
-let marked = require("marked");
-let _ = require("lodash");
+import header from '../components/Header'
+import footer from '../components/Footer'
+let marked = require('marked');
 export default {
-  name: "Home",
-  components: {},
-  data: function() {
+  name: 'app',
+  data () {
     return {
-      input: "# hello"
-    };
-  },
-  computed: {
-    compiledMarkdown: function() {
-      return marked(this.input, { sanitize: true });
+      md_text: '# Title',
     }
   },
-  methods: {
-    update: _.debounce(function(e) {
-      this.input = e.target.value;
-    }, 300)
+  computed: {
+	previewText() {
+		marked.setOptions({
+		  renderer: new marked.Renderer(),
+		  gfm: true,
+		  tables: true,
+		  breaks: true,
+		  pedantic: false,
+		  sanitize: true,
+		  smartLists: true,
+		  smartypants: false
+		});
+		return marked(this.md_text)
+	}
+  },
+  components: {
+    'app-header': header,
+    'app-footer': footer
   }
-};
+}
 </script>
-
-<style scoped>
-html,
-body,
-#editor {
-  margin: 0;
-  height: 100%;
-  font-family: "Helvetica Neue", Arial, sans-serif;
-  color: #333;
-}
-
-textarea,
-#editor div {
-  display: inline-block;
-  width: 49%;
-  height: 100%;
-  vertical-align: top;
-  box-sizing: border-box;
-  padding: 0 20px;
-}
-
-textarea {
-  border: none;
-  border-right: 1px solid #ccc;
-  resize: none;
-  outline: none;
-  background-color: #f6f6f6;
-  font-size: 14px;
-  font-family: "Monaco", courier, monospace;
-  padding: 20px;
-}
-
-code {
-  color: #f66;
-}
-</style>
